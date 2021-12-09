@@ -13,7 +13,6 @@ async function createUser(req, res) {
     if (users.length >= 1) return res.status(409).json({ message: MESSAGE_ERROR7 });
   
     await User.create({ displayName, email, password, image });
-    console.log(displayName);
   
     const token = jwt.sign(
       {

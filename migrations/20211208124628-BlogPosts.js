@@ -14,7 +14,10 @@ module.exports = {
         content: Sequelize.STRING,
         userId: Sequelize.INTEGER,
         published: Sequelize.DATE,
-        updated: Sequelize.DATE
+        updated: {
+          type: Sequelize.DATE,
+          allowNull: true,
+        }
       }
     );
   },
