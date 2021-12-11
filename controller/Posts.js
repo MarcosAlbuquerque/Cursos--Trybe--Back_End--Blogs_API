@@ -1,4 +1,4 @@
-const { BlogPosts/* , PostsCategory */ } = require('../models');
+const { BlogPosts, User, Category } = require('../models');
 
 async function createPost(req, res) {
   try {
@@ -20,6 +20,31 @@ async function createPost(req, res) {
   }
 }
 
+async function allPosts(req, res) {
+  const dataPosts = await BlogPosts.findAll();
+  const dataUser = await User.findAll();
+  const dataCategory = await Category.findAll();
+
+  // console.log(dataPosts[0].dataValues, dataUser[0].dataValues, dataCategory[0].dataValues);
+  
+  const result = Object.assign(
+    dataPosts[0].dataValues,
+    {
+      user: dataUser[0].dataValues,
+    },
+    {
+      categories: [dataCategory[0].dataValues],
+    },
+  );
+  
+  return res.status(200).send(
+    [
+      result,
+    ],
+  );
+}
+
 module.exports = {
   createPost,
+  allPosts,
 };
