@@ -113,9 +113,35 @@ async function changePost(req, res) {
   }
 }
 
+async function deletePost(req, res) {
+  const { id } = req.params;
+  const token = req.headers.authorization;
+  const { data: { email } } = jwt.decode(token, segredo);
+
+  const dataPosts = await BlogPosts.findOne({ where: { id } });
+  if (dataPosts === null) return res.status(404).json({ message: MESSAGE_ERROR17 });
+
+  const { userId: dataPostUser } = dataPosts;
+
+  // pega id do usuario buscando pelo email decodificado
+  const user = await User.findAll({ where: { email } });
+  const { id: userId } = user[0];
+
+  if (dataPostUser !== userId) return res.status(401).json({ message: MESSAGE_ERROR19 });
+  await BlogPosts.destroy(
+    { 
+      where: {
+        id,
+      },
+    },
+  );
+  return res.status(204).send();
+}
+
 module.exports = {
   createPost,
   allPosts,
   idByPosts,
   changePost,
+  deletePost,
 };
