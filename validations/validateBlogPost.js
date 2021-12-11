@@ -14,7 +14,6 @@ async function validateBlogPost(req, res, next) {
     const { id: userId } = user[0];
 
     const categories = await Category.findAll({ where: { id: categoryIds } });
-    console.log({ categories }, { categoryIds });
 
     if (categories.length === 0) return res.status(400).json({ message: MESSAGE_ERROR16 });
     const dataCategory = categories;

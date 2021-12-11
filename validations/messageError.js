@@ -15,6 +15,8 @@ const MESSAGE_ERROR14 = '"content" is required';
 const MESSAGE_ERROR15 = '"categoryIds" is required';
 const MESSAGE_ERROR16 = '"categoryIds" not found';
 const MESSAGE_ERROR17 = 'Post does not exist';
+const MESSAGE_ERROR18 = 'Categories cannot be edited';
+const MESSAGE_ERROR19 = 'Unauthorized user';
 
 module.exports = {
   MESSAGE_ERROR1,
@@ -34,4 +36,6 @@ module.exports = {
   MESSAGE_ERROR15,
   MESSAGE_ERROR16,
   MESSAGE_ERROR17,
+  MESSAGE_ERROR18,
+  MESSAGE_ERROR19,
 };
