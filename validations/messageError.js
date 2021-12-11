@@ -14,6 +14,7 @@ const MESSAGE_ERROR13 = '"title" is required';
 const MESSAGE_ERROR14 = '"content" is required';
 const MESSAGE_ERROR15 = '"categoryIds" is required';
 const MESSAGE_ERROR16 = '"categoryIds" not found';
+const MESSAGE_ERROR17 = 'Post does not exist';
 
 module.exports = {
   MESSAGE_ERROR1,
@@ -32,4 +33,5 @@ module.exports = {
   MESSAGE_ERROR14,
   MESSAGE_ERROR15,
   MESSAGE_ERROR16,
+  MESSAGE_ERROR17,
 };

@@ -1,4 +1,5 @@
 const { BlogPosts, User, Category } = require('../models');
+const { MESSAGE_ERROR17 } = require('../validations/messageError');
 
 async function createPost(req, res) {
   try {
@@ -26,7 +27,7 @@ async function allPosts(req, res) {
   const dataCategory = await Category.findAll();
 
   // console.log(dataPosts[0].dataValues, dataUser[0].dataValues, dataCategory[0].dataValues);
-  
+
   const result = Object.assign(
     dataPosts[0].dataValues,
     {
@@ -36,7 +37,7 @@ async function allPosts(req, res) {
       categories: [dataCategory[0].dataValues],
     },
   );
-  
+
   return res.status(200).send(
     [
       result,
@@ -44,7 +45,31 @@ async function allPosts(req, res) {
   );
 }
 
+async function idByPosts(req, res) {
+  const { id } = req.params;
+
+  const dataPosts = await BlogPosts.findOne({ where: { id } });
+  console.log({ dataPosts })
+  if (dataPosts === null) return res.status(400).json({ message: MESSAGE_ERROR17 });
+  const dataUser = await User.findAll();
+  const dataCategory = await Category.findAll();
+
+  const result = Object.assign(
+    dataPosts.dataValues,
+    { user: dataUser[0].dataValues },
+    { categories: [dataCategory[0].dataValues] },
+  );
+
+  return res.status(200).send(
+    [
+      result,
+    ],
+  );
+
+}
+
 module.exports = {
   createPost,
   allPosts,
+  idByPosts,
 };
