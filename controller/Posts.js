@@ -47,10 +47,11 @@ async function allPosts(req, res) {
 
 async function idByPosts(req, res) {
   const { id } = req.params;
-
   const dataPosts = await BlogPosts.findOne({ where: { id } });
-  console.log({ dataPosts })
-  if (dataPosts === null) return res.status(400).json({ message: MESSAGE_ERROR17 });
+
+  if (dataPosts === null) return res.status(404).json({ message: MESSAGE_ERROR17 });
+  if (typeof (dataPosts) === 'undefined') return res.status(404).json({ message: MESSAGE_ERROR17 });
+
   const dataUser = await User.findAll();
   const dataCategory = await Category.findAll();
 
@@ -60,12 +61,7 @@ async function idByPosts(req, res) {
     { categories: [dataCategory[0].dataValues] },
   );
 
-  return res.status(200).send(
-    [
-      result,
-    ],
-  );
-
+  return res.status(200).send(result);
 }
 
 module.exports = {
