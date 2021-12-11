@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const { MESSAGE_ERROR7 } = require('../validations/messageError');
 
+const segredo = process.env.JWT_SECRET;
 const jwtConfig = { expiresIn: '7d', algorithm: 'HS256' };
 
 // Este endpoint usa o método create do Sequelize para salvar um usuário no banco.
@@ -51,10 +52,20 @@ async function idByUser(req, res) {
   }
 }
 
+async function deleteUser(req, res) {
+  const token = req.headers.authorization;
+  const { data: { email } } = jwt.decode(token, segredo);
+  
+  await User.destroy({ where: { email } });
+
+  return res.status(204).send();
+}
+
 module.exports = {
   createUser,
   allUsers,
   idByUser,
+  deleteUser,
 };
 
 /*
