@@ -7,7 +7,7 @@ const { MESSAGE_ERROR12, MESSAGE_ERROR15 } = require('./messageError');
 
   function checkCategory(res, category) {
     if (Array.isArray(category)) sendStatusError(400, MESSAGE_ERROR15, res);
-    if (typeof (category) === 'undefined') sendStatusError(400, MESSAGE_ERROR15, res);
+    // if (typeof (category) === 'undefined') sendStatusError(400, MESSAGE_ERROR15, res);
   }
   
   function validateRegistration(req, res, next) {
